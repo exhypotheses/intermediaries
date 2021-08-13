@@ -1,4 +1,3 @@
-
 # The pickle of the developed model's details
 pocket: https://github.com/exhypotheses/risk/raw/master/warehouse/model/pocket.pkl
 
@@ -12,4 +11,4 @@ definitions: https://raw.githubusercontent.com/exhypotheses/risk/master/data/def
 testing:
   initial: https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/splits/scikit/testing.csv
   mappings: https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/representations/mappings.json
-  model:
+  model: ''
