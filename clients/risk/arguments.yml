@@ -8,7 +8,7 @@ trace: 'https://github.com/exhypotheses/risk/raw/master/warehouse/model/trace.zi
 definitions: 'https://raw.githubusercontent.com/exhypotheses/risk/master/data/definitions.json'
 
 # Data
-testing:
+testingData:
   initial: 'https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/splits/scikit/testing.csv'
   mappings: 'https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/representations/mappings.json'
   model: 'pending'
