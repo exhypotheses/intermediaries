@@ -1,6 +1,8 @@
+import collections
+
 import requests
 import yaml
-import collections
+
 
 class Arguments:
 
@@ -9,7 +11,8 @@ class Arguments:
 
         """
 
-    def url(self, urlstring: str) -> requests.models.Response:
+    @staticmethod
+    def url(urlstring: str) -> requests.models.Response:
         """
         Ascertains that the URL argument is valid
 
@@ -38,5 +41,6 @@ class Arguments:
 
         DataParameters = collections.namedtuple(
             typename='DataParameters',
-            field_names=['data_url', 'basename', 'data_sources_dictionary', 'definitions_of_categories',
-                         'fields', 'types'])
+            field_names=['url_initial', 'url_mappings'])
+
+        return DataParameters._make((text['testingData']['initial'], text['testingData']['mappings']))
