@@ -1,0 +1,15 @@
+
+# The pickle of the developed model's details
+pocket: https://github.com/exhypotheses/risk/raw/master/warehouse/model/pocket.pkl
+
+# The model's trace data; it is a PyMC3 Bayesian Model.
+trace: https://github.com/exhypotheses/risk/raw/master/warehouse/model/trace.zip
+
+# The definitions of the Polytomous Categorical Fields
+definitions: https://raw.githubusercontent.com/exhypotheses/risk/master/data/definitions.json
+
+# Testing data
+testing:
+  initial: https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/splits/scikit/testing.csv
+  mappings: https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/representations/mappings.json
+  model:
