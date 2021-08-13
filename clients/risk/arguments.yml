@@ -1,7 +1,7 @@
-pocket: 'https://github.com/exhypotheses/risk/raw/master/warehouse/model/pocket.pkl' # The pickle of the developed model's details
-trace: 'https://github.com/exhypotheses/risk/raw/master/warehouse/model/trace.zip' # The model's trace data; it is a PyMC3 Bayesian Model.
-definitions: 'https://raw.githubusercontent.com/exhypotheses/risk/master/data/definitions.json' # The definitions of the Polytomous Categorical Fields
+pocket: "https://github.com/exhypotheses/risk/raw/master/warehouse/model/pocket.pkl" # The pickle of the developed model's details
+trace: "https://github.com/exhypotheses/risk/raw/master/warehouse/model/trace.zip" # The model's trace data; it is a PyMC3 Bayesian Model.
+definitions: "https://raw.githubusercontent.com/exhypotheses/risk/master/data/definitions.json" # The definitions of the Polytomous Categorical Fields
 testing: # Testing data
-  initial: 'https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/splits/scikit/testing.csv'
-  mappings: 'https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/representations/mappings.json'
-  model: 'pending'
+  initial: "https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/splits/scikit/testing.csv"
+  mappings: "https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/representations/mappings.json"
+  model: "pending"
