@@ -1,19 +1,22 @@
 import logging
-import pandas as pd
+
 import dask
+import pandas as pd
 
 
 class Embeddings:
 
-    def __init__(self, data: pd.DataFrame, mappings: dict):
+    def __init__(self, data: pd.DataFrame, mappings: dict, fields: dict):
         """
 
         :param data:
         :param mappings:
+        :param fields:
         """
 
         self.data = data
         self.mappings = mappings
+        self.fields = fields
 
         # Logging
         logging.basicConfig(level=logging.INFO, format='%(message)s\n%(asctime)s.%(msecs)03d',
@@ -53,3 +56,9 @@ class Embeddings:
         calculations = dask.compute(computations, scheduler='processes')[0]
         transform = pd.concat(calculations, axis=1)
         self.logger.info(transform)
+
+        design = pd.concat((self.data[self.fields['numeric']],
+                            transform,
+                            self.data[self.fields['binary']],
+                            self.data[self.fields['target']]), axis=1, ignore_index=False)
+        self.logger.info(design)
