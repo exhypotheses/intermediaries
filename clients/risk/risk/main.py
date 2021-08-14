@@ -20,11 +20,12 @@ def main():
     :return:
     """
 
+    # The data
     data, mappings = risk.io.instances.Instances(parameters=parameters).exc()
     logger.info('\n%s', data.info())
-    logger.info('\n%s', mappings.keys())
 
-    embeddings = risk.functions.embeddings.Embeddings(data=data, mappings=mappings)
+    # Step 1: Embeddings
+    embeddings = risk.functions.embeddings.Embeddings(data=data, mappings=mappings, fields=parameters.fields)
     embeddings.exc()
 
 
