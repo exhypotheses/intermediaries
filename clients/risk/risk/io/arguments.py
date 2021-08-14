@@ -41,6 +41,6 @@ class Arguments:
 
         DataParameters = collections.namedtuple(
             typename='DataParameters',
-            field_names=['url_initial', 'url_mappings'])
+            field_names=['initial', 'mappings'])
 
         return DataParameters._make((text['testingData']['initial'], text['testingData']['mappings']))
