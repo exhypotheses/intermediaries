@@ -41,7 +41,7 @@ class Embeddings:
         frame = pd.DataFrame(data=lists, columns=['{}_01'.format(field), '{}_02'.format(field)])
         return frame
 
-    def exc(self):
+    def exc(self) -> pd.DataFrame:
         """
 
         :return:
@@ -62,3 +62,5 @@ class Embeddings:
                             self.data[self.fields['binary']],
                             self.data[self.fields['target']]), axis=1, ignore_index=False)
         self.logger.info(design)
+
+        return design
