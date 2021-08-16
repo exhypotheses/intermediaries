@@ -20,11 +20,11 @@ testingData:
       purpose: ['A40', 'A41', 'A42', 'A43', 'A44', 'A45', 'A46', 'A47', 'A48', 'A49', 'A410']
       savings_acc_class: ['A61', 'A62', 'A63', 'A64', 'A65']
       curr_emp_class: ['A71', 'A72', 'A73', 'A74', 'A75']
-      sex_and_status: [ 'A91', 'A92', 'A93', 'A94', 'A95' ]
-      other_debtors_class: [ 'A101', 'A102', 'A103' ]
-      property: [ 'A121', 'A122', 'A123', 'A124' ]
-      other_i_plans: [ 'A141', 'A142', 'A143' ]
-      housing: [ 'A151', 'A152', 'A153' ]
-      job: [ 'A171', 'A172', 'A173', 'A174' ]
+      sex_and_status: ['A91', 'A92', 'A93', 'A94', 'A95']
+      other_debtors_class: ['A101', 'A102', 'A103']
+      property: ['A121', 'A122', 'A123', 'A124']
+      other_i_plans: ['A141', 'A142', 'A143']
+      housing: ['A151', 'A152', 'A153']
+      job: ['A171', 'A172', 'A173', 'A174']
   mappings: 'https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/representations/mappings.json'
   model: 'pending'
