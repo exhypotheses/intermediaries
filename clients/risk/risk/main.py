@@ -21,12 +21,10 @@ def main():
     """
 
     # The data
-    data, mappings = risk.io.instances.Instances(parameters=parameters).exc()
+    data, mappings = risk.io.instances.Instances(parameters=data_).exc()
     logger.info('\n%s', data.info())
 
-    # Step 1: Embeddings
-    embeddings = risk.functions.embeddings.Embeddings(data=data, mappings=mappings, fields=parameters.fields)
-    embeddings.exc()
+
 
 
 if __name__ == '__main__':
@@ -53,6 +51,6 @@ if __name__ == '__main__':
                         type=arguments.url,
                         help='The URL of a YAML of parameters; refer to the README notes.')
     args = parser.parse_args()
-    parameters = arguments.parameters(elements=args.elements)
+    data_, assets_ = arguments.parameters(elements=args.elements)
 
     main()
