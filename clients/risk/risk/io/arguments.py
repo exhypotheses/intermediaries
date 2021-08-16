@@ -39,9 +39,14 @@ class Arguments:
 
         text = yaml.safe_load(elements.text)
 
-        DataParameters = collections.namedtuple(
-            typename='DataParameters',
-            field_names=['initial', 'fields', 'mappings'])
+        Assets = collections.namedtuple(typename='Assets', field_names=['pocket', 'trace'])
+        assets_ = Assets._make((text['pocket'], text['trace']))
 
-        return DataParameters._make((text['testingData']['initial'],
-                                     text['testingData']['initialFields'], text['testingData']['mappings']))
+        Data = collections.namedtuple(
+            typename='Data',
+            field_names=['initial', 'fields', 'mappings'])
+        data_ = Data._make((text['testingData']['initial'],
+                            text['testingData']['initialFields'],
+                            text['testingData']['mappings']))
+
+        return (data_, assets_)
