@@ -1,9 +1,6 @@
 """
 Module: preprocessing, this needs some thought
-
-    * Each modelling task has its variety & sequence of preprocessing steps
     * Tests ascertaining the existence of expected fields will be required.
-
 """
 
 import collections
@@ -12,6 +9,7 @@ import pandas as pd
 import sklearn.preprocessing
 
 import risk.functions.scale
+import risk.functions.embeddings
 
 
 # noinspection PyUnresolvedReferences
@@ -21,57 +19,55 @@ class Preprocessing:
 
     """
 
-    def __init__(self, parameters: collections.namedtuple, scaler: sklearn.preprocessing.StandardScaler):
+    def __init__(self, pocket: dict, mappings: dict, parameters: collections.namedtuple):
         """
 
-        :param parameters:
-        :param scaler:
+        :param pocket:
         """
 
-        self.extraneous = parameters.extraneous
-        self.regressors = parameters.regressors
-        self.target = parameters.target
+        self.fields = parameters.fields
+        self.target = parameters.fields['target']
 
-        self.scaler = scaler
+        self.mappings = mappings
 
-    def prescale_(self, blob: pd.DataFrame) -> pd.DataFrame:
+        self.regressors = pocket['regressors']
+        self.scaler: sklearn.preprocessing.StandardScaler = pocket['scaler']
+
+    def embed_(self, blob: pd.DataFrame):
         """
-        Drop extraneous fields, i.e., the polytomous categorical fields that have alternative representations.
+        Step 1: Embeddings
 
         :param blob:
         :return:
         """
 
-        if bool(self.extraneous):
-            data = blob.copy().drop(columns=self.extraneous)
-        else:
-            data = blob.copy()
-
-        return data
+        embeddings = risk.functions.embeddings.Embeddings(
+            data=blob, mappings=self.mappings, fields=self.fields)
+        return embeddings.exc()
 
     def scale_(self, blob: pd.DataFrame) -> pd.DataFrame:
         """
+        Step 2: Scaling
 
         :param blob:
         :return:
         """
 
         scale = risk.functions.scale.Scale()
-
-        left = scale.apply(blob=blob.drop(columns=self.target), scaler=self.scaler)
-        scaled = pd.concat((left, blob[self.target]), axis=1, ignore_index=False)
+        transform = scale.apply(blob=blob.drop(columns=self.target), scaler=self.scaler)
+        scaled = pd.concat((transform, blob[self.target]), axis=1, ignore_index=False)
 
         return scaled
 
-    def exc(self, frame: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
+    def exc(self, data: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
         """
 
-        :param frame:
+        :param data:
         :return:
         """
 
-        prescaled = self.prescale_(blob=frame)
-        scaled = self.scale_(blob=prescaled)
+        embedded = self.embed_(blob=data)
+        scaled = self.scale_(blob=embedded)
 
         x_testing_ = scaled[self.regressors]
         y_testing_ = scaled[self.target]
