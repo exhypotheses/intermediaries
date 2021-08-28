@@ -68,8 +68,7 @@ class Preprocessing:
 
         embedded = self.embed_(blob=data)
         scaled = self.scale_(blob=embedded)
-
-        x_testing_ = scaled[self.regressors]
+        x_testing_ = scaled[self.regressors.split(',')]
         y_testing_ = scaled[self.target]
 
         return x_testing_, y_testing_
