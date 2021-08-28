@@ -13,7 +13,7 @@ class Instances:
     def __data(self) -> pd.DataFrame:
 
         try:
-            return pd.read_csv(filepath_or_buffer=self.parameters.initial, header=0, encoding='utf-8')
+            return pd.read_csv(filepath_or_buffer=self.parameters.url, header=0, encoding='utf-8')
         except OSError as err:
             raise Exception(err.strerror)
 
