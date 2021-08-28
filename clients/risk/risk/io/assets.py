@@ -3,6 +3,7 @@ import pickle
 import requests
 import json
 import collections
+import theano
 
 
 class Assets:
@@ -16,7 +17,7 @@ class Assets:
         self.assets_ = assets_
         self.path = os.path.join(os.getcwd(), 'data')
 
-    def __pocket(self) -> dict:
+    def __pocket(self):
 
         try:
             req = requests.get(url=self.assets_.pocket)
@@ -32,7 +33,7 @@ class Assets:
             pickled = f.read()
             f.close()
 
-        return pickle.loads(pickled)
+        return pickle.loads(pickled, fix_imports=True, encoding='bytes')
 
     def __mappings(self) -> dict:
 
