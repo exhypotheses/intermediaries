@@ -29,9 +29,9 @@ def main():
     logger.info(mappings)
 
     x_testing_, y_testing_ = risk.functions.preprocessing.Preprocessing(
-        pocket=pocket, mappings=mappings, fields=data_.fields)
+        pocket=pocket, mappings=mappings, fields=data_.fields).exc(data=data)
     logger.info(x_testing_.info())
-    logger.info(y_testing_.info())
+    logger.info(y_testing_)
 
 
 if __name__ == '__main__':
