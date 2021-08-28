@@ -21,10 +21,17 @@ def main():
     """
 
     # The data
-    data, mappings = risk.io.instances.Instances(parameters=data_).exc()
+    data = risk.io.instances.Instances(parameters=data_).exc()
     logger.info('\n%s', data.info())
 
+    pocket, mappings = risk.io.assets.Assets(assets_=assets_).exc()
+    logger.info(pocket.keys())
+    logger.info(mappings)
 
+    x_testing_, y_testing_ = risk.functions.preprocessing.Preprocessing(
+        pocket=pocket, mappings=mappings, fields=data_.fields)
+    logger.info(x_testing_.info())
+    logger.info(y_testing_.info())
 
 
 if __name__ == '__main__':
@@ -41,7 +48,8 @@ if __name__ == '__main__':
     # Classes
     import risk.io.arguments
     import risk.io.instances
-    import risk.functions.embeddings
+    import risk.io.assets
+    import risk.functions.preprocessing
 
     # Parse Arguments
     arguments = risk.io.arguments.Arguments()
