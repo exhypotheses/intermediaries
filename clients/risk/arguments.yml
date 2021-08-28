@@ -1,16 +1,19 @@
 # The pickle of the developed model's details
-pocket: 'https://github.com/exhypotheses/risk/raw/master/warehouse/model/pocket.pkl'
+pocket: 'https://github.com/exhypotheses/risk/raw/develop/warehouse/model/pocket.pkl'
 
 # The model's trace data; it is a PyMC3 Bayesian Model.
-trace: 'https://github.com/exhypotheses/risk/raw/master/warehouse/model/trace.zip'
+trace: 'https://github.com/exhypotheses/risk/raw/develop/warehouse/model/trace.zip'
 
 # The definitions of the Polytomous Categorical Fields
-definitions: 'https://raw.githubusercontent.com/exhypotheses/risk/master/data/definitions.json'
+definitions: 'https://raw.githubusercontent.com/exhypotheses/risk/develop/data/definitions.json'
+
+# t-SNE embeddings of polytomous categorical fields
+mappings: 'https://raw.githubusercontent.com/exhypotheses/risk/develop/warehouse/data/modelling/representations/mappings.json'
 
 # Data
 testingData:
-  initial: 'https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/splits/scikit/testing.csv'
-  initialFields:
+  url: 'https://raw.githubusercontent.com/exhypotheses/risk/develop/warehouse/data/modelling/splits/scikit/testing.csv'
+  fields:
     numeric: ['duration_months', 'credit_amount', 'i_rate_by_disp_inc', 'curr_res_since', 'age_years', 'n_e_credits_this_bank', 'n_dependants']
     binary: ['telephone', 'foreign_worker', 'female']
     target: 'acceptable'
@@ -26,5 +29,3 @@ testingData:
       other_i_plans: ['A141', 'A142', 'A143']
       housing: ['A151', 'A152', 'A153']
       job: ['A171', 'A172', 'A173', 'A174']
-  mappings: 'https://raw.githubusercontent.com/exhypotheses/risk/master/warehouse/data/modelling/representations/mappings.json'
-  model: 'pending'
