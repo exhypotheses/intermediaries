@@ -3,7 +3,9 @@ import pickle
 import requests
 import json
 import collections
-import theano
+import io
+import zipfile
+import pymc3
 
 
 class Assets:
@@ -35,6 +37,33 @@ class Assets:
 
         return pickle.loads(pickled, fix_imports=True, encoding='bytes')
 
+    def __trace(self, lm):
+
+        try:
+            req = requests.get(url=self.assets_.trace)
+            req.raise_for_status()
+        except requests.exceptions.RequestException as err:
+            raise Exception(err)
+        zipped_object = zipfile.ZipFile(io.BytesIO(req.content))
+
+        try:
+            zipped_object.extractall(path=self.path)
+        except OSError as err:
+            raise Exception(err)
+
+        with lm:
+            return pymc3.backends.ndarray.load_trace(directory=os.path.join(self.path, 'trace'))
+
+    def __definitions(self):
+
+        try:
+            req = requests.get(url=self.assets_.definitions)
+            req.raise_for_status()
+        except requests.exceptions.RequestException() as err:
+            raise Exception(err)
+
+        return json.loads(req.content)
+
     def __mappings(self) -> dict:
 
         try:
@@ -54,4 +83,9 @@ class Assets:
         if not os.path.exists(self.path):
             os.makedirs(self.path)
 
-        return self.__pocket(), self.__mappings()
+        pocket = self.__pocket()
+        mappings = self.__mappings()
+        trace = self.__trace(lm=pocket['lm'])
+        definitions = self.__definitions()
+
+        return pocket, mappings, trace, definitions
