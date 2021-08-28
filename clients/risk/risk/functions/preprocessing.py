@@ -19,14 +19,14 @@ class Preprocessing:
 
     """
 
-    def __init__(self, pocket: dict, mappings: dict, parameters: collections.namedtuple):
+    def __init__(self, pocket: dict, mappings: dict, fields: dict):
         """
 
         :param pocket:
         """
 
-        self.fields = parameters.fields
-        self.target = parameters.fields['target']
+        self.fields = fields
+        self.target = fields['target']
 
         self.mappings = mappings
 
