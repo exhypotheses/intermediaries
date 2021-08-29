@@ -18,7 +18,7 @@ https://linux.die.net/man/1/wget
 NOTE: This section is particular to a model being assessed
 '
 # Developed Model (and its trace series)
-wget -q -P data https://github.com/exhypotheses/intermediaries/raw/develop/clients/risk/risk.zip
+wget -q https://github.com/exhypotheses/intermediaries/raw/develop/clients/risk/risk.zip
 
 
 :'
