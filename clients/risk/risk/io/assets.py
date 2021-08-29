@@ -1,11 +1,12 @@
-import os
-import pickle
-import requests
-import json
 import collections
 import io
+import json
+import os
+import pickle
 import zipfile
+
 import pymc3
+import requests
 
 
 class Assets:
@@ -20,6 +21,10 @@ class Assets:
         self.path = os.path.join(os.getcwd(), 'data')
 
     def __pocket(self):
+        """
+
+        :return:
+        """
 
         try:
             req = requests.get(url=self.assets_.pocket)
@@ -38,6 +43,11 @@ class Assets:
         return pickle.loads(pickled, fix_imports=True, encoding='bytes')
 
     def __trace(self, lm):
+        """
+
+        :param lm:
+        :return: pymc3.backends.base.MultiTrace
+        """
 
         try:
             req = requests.get(url=self.assets_.trace)
@@ -55,6 +65,10 @@ class Assets:
             return pymc3.backends.ndarray.load_trace(directory=os.path.join(self.path, 'trace'))
 
     def __definitions(self):
+        """
+
+        :return:
+        """
 
         try:
             req = requests.get(url=self.assets_.definitions)
@@ -65,6 +79,10 @@ class Assets:
         return json.loads(req.content)
 
     def __mappings(self) -> dict:
+        """
+
+        :return:
+        """
 
         try:
             req = requests.get(url=self.assets_.mappings)
