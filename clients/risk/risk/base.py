@@ -62,7 +62,7 @@ class Base:
         self.logger.info('\nPocket: \n%s', pocket.keys())
         self.logger.info('\nMappings Keys: \n%s', mappings.keys())
         self.logger.info('\nTrace Variables: \n%s', trace.varnames)
-        self.logger.info('\nPolytomous Categorical Variables: \n%s', definitions.keys())
+        self.logger.info('\nCategorical Fields: \n%s', definitions.keys())
 
         x_testing_, y_testing_ = risk.functions.preprocessing.Preprocessing(
             pocket=pocket, mappings=mappings, fields=data_.fields).exc(data=data)
