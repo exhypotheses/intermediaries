@@ -24,14 +24,18 @@ def main():
     data = risk.io.instances.Instances(parameters=data_).exc()
     logger.info('\n%s', data.info())
 
-    pocket, mappings = risk.io.assets.Assets(assets_=assets_).exc()
+    pocket, mappings, trace, definitions = risk.io.assets.Assets(assets_=assets_).exc()
     logger.info(pocket.keys())
-    logger.info(mappings)
+    logger.info(mappings.keys())
+    logger.info(trace.varnames)
+    logger.info(definitions.keys())
 
     x_testing_, y_testing_ = risk.functions.preprocessing.Preprocessing(
         pocket=pocket, mappings=mappings, fields=data_.fields).exc(data=data)
     logger.info(x_testing_.info())
     logger.info(y_testing_)
+
+    return pocket, mappings, trace, definitions, x_testing_, y_testing_
 
 
 if __name__ == '__main__':
