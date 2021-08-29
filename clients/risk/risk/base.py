@@ -1,68 +1,72 @@
-import argparse
-import os
-import sys
 import logging
+import requests
+
+import risk.io.arguments
+import risk.io.instances
+import risk.io.assets
+import risk.functions.preprocessing
 
 
-def main():
-    """
-    embed -> scale -> structure
+class Base:
 
-    From model developer:
-        pocket.pkl (model),
-        trace.zip (of model),
-        definitions.json (of categorical fields)
-        mappings.json (t-SNE embeddings of polytomous categorical fields)
+    def __init__(self, urlstring):
+        """
 
-    From the client:
-        testing.csv
+        :param urlstring:
+        """
 
-    :return:
-    """
+        self.urlstring = urlstring
 
-    # The data
-    data = risk.io.instances.Instances(parameters=data_).exc()
-    logger.info('\n%s', data.info())
+        # Logging
+        logging.basicConfig(level=logging.INFO, format='%(message)s\n%(asctime)s.%(msecs)03d', datefmt='%Y-%m-%d %H:%M:%S')
+        self.logger = logging.getLogger(__name__)
 
-    pocket, mappings, trace, definitions = risk.io.assets.Assets(assets_=assets_).exc()
-    logger.info(pocket.keys())
-    logger.info(mappings.keys())
-    logger.info(trace.varnames)
-    logger.info(definitions.keys())
+    def __arguments(self):
+        """
+        Parse Arguments
 
-    x_testing_, y_testing_ = risk.functions.preprocessing.Preprocessing(
-        pocket=pocket, mappings=mappings, fields=data_.fields).exc(data=data)
-    logger.info(x_testing_.info())
-    logger.info(y_testing_)
+        :return:
+        """
 
-    return pocket, mappings, trace, definitions, x_testing_, y_testing_
+        arguments = risk.io.arguments.Arguments()
+        req: requests.models.Response = arguments.url(urlstring=self.urlstring)
 
+        data_, assets_ = arguments.parameters(elements=req)
 
-if __name__ == '__main__':
+        return data_, assets_
 
-    # Paths
-    root = os.getcwd()
-    sys.path.append(root)
-    sys.path.append(os.path.join(root, 'risk'))
+    def exc(self):
 
-    # Logging
-    logging.basicConfig(level=logging.INFO, format='%(message)s\n%(asctime)s.%(msecs)03d', datefmt='%Y-%m-%d %H:%M:%S')
-    logger = logging.getLogger(__name__)
+        """
+        embed -> scale -> structure
 
-    # Classes
-    import risk.io.arguments
-    import risk.io.instances
-    import risk.io.assets
-    import risk.functions.preprocessing
+        From model developer:
+            pocket.pkl (model),
+            trace.zip (of model),
+            definitions.json (of categorical fields)
+            mappings.json (t-SNE embeddings of polytomous categorical fields)
 
-    # Parse Arguments
-    arguments = risk.io.arguments.Arguments()
-    parser = argparse.ArgumentParser()
+        From the client:
+            testing.csv
 
-    parser.add_argument('elements',
-                        type=arguments.url,
-                        help='The URL of a YAML of parameters; refer to the README notes.')
-    args = parser.parse_args()
-    data_, assets_ = arguments.parameters(elements=args.elements)
+        :return:
+        """
 
-    main()
+        data_, assets_ = self.__arguments()
+
+        # The data
+        data = risk.io.instances.Instances(parameters=data_).exc()
+        self.logger.info('\n%s', data.info())
+
+        pocket, mappings, trace, definitions = risk.io.assets.Assets(assets_=assets_).exc()
+        self.logger.info('\nPocket: \n%s', pocket.keys())
+        self.logger.info('\nMappings Keys: \n%s', mappings.keys())
+        self.logger.info('\nTrace Variables: \n%s', trace.varnames)
+        self.logger.info('\nPolytomous Categorical Variables: \n%s', definitions.keys())
+
+        x_testing_, y_testing_ = risk.functions.preprocessing.Preprocessing(
+            pocket=pocket, mappings=mappings, fields=data_.fields).exc(data=data)
+        self.logger.info('\nRegressors %s', x_testing_.info())
+        self.logger.info('\nOutcomes', y_testing_.tail())
+
+        return pocket, mappings, trace, definitions, x_testing_, y_testing_
