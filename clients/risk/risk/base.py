@@ -69,4 +69,4 @@ class Base:
         self.logger.info('\nRegressors %s', x_testing_.info())
         self.logger.info('\nOutcomes', y_testing_.tail())
 
-        return pocket, mappings, trace, definitions, x_testing_, y_testing_
+        return pocket, mappings, trace, definitions, x_testing_, y_testing_, data
