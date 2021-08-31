@@ -38,7 +38,7 @@ class Embeddings:
 
         elements = series.map(dictionary)
         lists = elements.tolist()
-        frame = pd.DataFrame(data=lists, columns=['{}_01'.format(field), '{}_02'.format(field)])
+        frame = pd.DataFrame(data=lists, columns=['{}_1'.format(field), '{}_2'.format(field)])
         return frame
 
     def exc(self) -> pd.DataFrame:
