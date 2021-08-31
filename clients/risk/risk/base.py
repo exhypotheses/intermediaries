@@ -56,17 +56,17 @@ class Base:
 
         # The data
         data = risk.io.instances.Instances(parameters=data_).exc()
-        self.logger.info('\n%s', data.info())
+        self.logger.info('\nTesting Data: %s', data.shape)
 
         pocket, mappings, trace, definitions = risk.io.assets.Assets(assets_=assets_).exc()
-        self.logger.info('\nPocket: \n%s', pocket.keys())
-        self.logger.info('\nMappings Keys: \n%s', mappings.keys())
-        self.logger.info('\nTrace Variables: \n%s', trace.varnames)
-        self.logger.info('\nCategorical Fields: \n%s', definitions.keys())
+        self.logger.info('\nPocket:\n %s', pocket.keys())
+        self.logger.info('\nMappings Keys:\n %s', mappings.keys())
+        self.logger.info('\nTrace Variables:\n %s', trace.varnames)
+        self.logger.info('\nCategorical Fields:\n %s', definitions.keys())
 
         x_testing_, y_testing_ = risk.functions.preprocessing.Preprocessing(
             pocket=pocket, mappings=mappings, fields=data_.fields).exc(data=data)
-        self.logger.info('\nRegressors %s', x_testing_.info())
-        self.logger.info('\nOutcomes', y_testing_.tail())
+        self.logger.info('\nRegressors:\n %s', x_testing_.info())
+        self.logger.info('\nOutcomes:\n %s', y_testing_.tail())
 
         return pocket, mappings, trace, definitions, x_testing_, y_testing_, data
